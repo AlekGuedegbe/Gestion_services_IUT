@@ -1,0 +1,300 @@
+#include <iostream>
+#include <fstream>
+#include "nlohmann/json.hpp"
+
+
+
+#include "../logiciel/Enseignant.h"
+#include "../logiciel/Module.h"
+#include "../logiciel/Seance.h"
+#include "../logiciel/Promotion_etudiante.h"
+#include "../logiciel/Salle.h"
+
+using namespace std;
+// for convenience
+using json = nlohmann::json;
+
+
+int choix;
+Enseignant enseignant ;
+void ajouter_enseignant();
+void ajouter_module_a_un_enseignant();
+
+
+
+string const ens("C:/stage/ens.json");
+fstream fluxEns(ens.c_str());
+
+
+
+int main()
+{
+    while (1)
+    {
+
+
+choix=0;
+
+if(choix == 0)
+{
+
+    cout <<"_______________________Logiciel de gestion des services enseignants IUT POITIERS_______________________"<<endl<<endl;
+
+
+    cout <<"__________________________________________Menu General__________________________________________________"<<endl<<endl;
+
+    cout <<"____________________________________Options de mises a jour________________________________________________"<<endl<<endl;
+
+    cout <<"-------------------ENSEIGNANTS------------------"<<endl;
+    cout <<"1-Modifier la liste des enseignants de l'IUT"<<endl;
+    cout <<"2-Modifier les modules d'un enseignant"<<endl;
+    cout <<"3-Generer la fiche de service d'un enseignant"<<endl<<endl;
+
+    cout <<"-------------------MODULES------------------"<<endl;
+    cout <<"4-Modifier la liste des modules enseignes a l'IUT"<<endl;
+    cout <<"5-Modifier le volume horraire annuel d'un module"<<endl;
+    cout <<"6-Modifier l'organisation d'un module( nbre de CM,TD,TP et choix de successions des seances )"<<endl<<endl;
+
+    cout <<"-------------------SEANCES------------------"<<endl;
+    cout <<"7-Ajouter une séance"<<endl;
+    cout <<"8-Retirer une séance"<<endl;
+    cout <<"9-Modifier les salles accociees a une seance"<<endl<<endl;
+
+     cout <<"-------------------ETUDIANTS------------------"<<endl;
+    cout <<"10-Modifier la liste des groupes"<<endl;
+    cout <<"11-Modifier les modules associes a un groupes"<<endl;
+    cout <<"12-Modifier le nombre d'etudiants d'un groupe"<<endl;
+    cout <<"13-Modifier le volume horraire annuel d'un groupe d'un groupe"<<endl<<endl<<endl;
+
+
+
+    cout <<"__________________________________Obtenir des informations______________________________________________________"<<endl<<endl;
+        cout <<"-------------------ENSEIGNANTS------------------"<<endl;
+    cout <<"14-Liste des enseignants de l'IUT"<<endl;
+    cout <<"15-Services d'un enseignant"<<endl;
+    cout <<"16-Fiche de service d'un enseignant"<<endl<<endl;
+
+    cout <<"-------------------MODULES------------------"<<endl;
+    cout <<"17-Liste des modules enseignes a l'IUT"<<endl;
+    cout <<"18-Volume horraire annuel d'un module"<<endl;
+    cout <<"19-Organisation d'un module( nbre de CM,TD,TP et choix de successions des seances )"<<endl<<endl;
+
+    cout <<"-------------------SEANCES------------------"<<endl;
+    cout <<"20-Verifier les Enseignants associés a une seance"<<endl;
+    cout <<"21-Etudiants associees a une seance"<<endl;
+    cout <<"22-Salles associees a une seance"<<endl<<endl;
+
+    cout <<"-------------------ETUDIANTS------------------"<<endl;
+    cout <<"23-Liste des groupes"<<endl;
+    cout <<"24-Modules associes a un groupes"<<endl;
+    cout <<"25-Nombre d'etudiants d'un groupe"<<endl;
+    cout <<"26-Volume horraire annuel d'un groupe"<<endl<<endl<<endl;
+
+
+     cout <<"0 pour retourner au menu principal"<<endl;
+
+    cout <<"______________________________________________________________________________________________________________________"<<endl;
+
+
+    cin >> choix ;
+}
+
+if (choix==1)
+{
+    cout <<"1-ajouter un enseignant"<<endl;
+    cout <<"2-retirer un enseignant"<<endl;
+    cin >> choix;
+    if(choix==1)
+    {
+         ajouter_enseignant();
+         choix=0;
+    }
+    else
+    {
+
+    }
+}
+else if (choix==2)
+{
+    cout <<"1-ajouter un module"<<endl;
+    cout <<"2-retirer un module"<<endl;
+    cin >> choix;
+    if(choix==1)
+    {
+         ajouter_module_a_un_enseignant();
+         choix=0;
+    }
+    else
+    {
+
+    }
+
+}
+
+
+
+
+
+/*    switch (choix)
+        {
+            case 1 :
+                 cout <<"1-ajouter un enseignant"<<endl;
+                 cout <<"2-retirer un enseignant"<<endl;
+                 cin >> choix;
+
+                 switch (choix)
+                    {
+                        case 1 :
+                            ajouter_enseignant();
+                            choix=0;
+
+
+                    }
+           case 2 :
+
+                 cout <<"1-ajouter un module"<<endl;
+                 cout <<"2-retirer un module"<<endl;
+                 cin >> choix;
+
+                 switch (choix)
+                    {
+                        case 1 :
+                            ajouter_module_a_un_enseignant();
+                            choix=0;
+
+
+                    }
+
+
+        }*/
+}
+}
+
+
+
+
+void ajouter_enseignant()
+{
+
+    Enseignant enseignant ;
+    int validation;
+
+    string n;
+    string p;
+    int _id;
+    int _statut;
+    float _service_hor_annuel;
+    string liste_ens;
+    string ligne;
+
+
+
+        cout <<"nom de l'enseignant"<<endl;
+        cin  >>n;
+        enseignant.setNom(n) ;
+
+        cout <<"prenom de l'enseignant"<<endl;
+        cin  >>p;
+        enseignant.setPrenom(p);
+
+        cout <<"statut de l'enseignant"<<endl;
+        cin  >> _statut;
+        enseignant.setStatut(_statut);
+
+        cout <<"id de l'enseignant"<<endl;
+        cin  >> _id;
+        enseignant.setId(_id);
+
+
+        cout <<"volume horraire de l'enseignant"<<endl;
+        cin  >> _service_hor_annuel;
+        enseignant.setService(_service_hor_annuel);
+
+        json k=
+        {
+            {"nom",n},{"prenom",p},{"id",_id},{"statut",_statut}, {"vol_horraire",_service_hor_annuel}
+        };
+
+         cout <<"Confirmez vous l'ajout a la liste des enseignants de l'enseignant suivant ?"<<endl;
+
+         std::cout << k << '\n';
+
+
+         cout <<"1-Pour valider et 2-Pour annuler  l'enregistrement de l'enseignant ci-dessus"<<endl;
+
+    cin  >> validation;
+
+
+    if(validation==1)
+    {
+
+        if(fluxEns)
+        {
+            /*nlohmann::json j = nlohmann::json({{"liste_Enseignants",{{{"nom","popo"},{"prenom","zara"},{"id",12},{"vol_horraire",125.4}}}}});
+            std::cout << j << '\n';*/
+
+
+
+        while(getline(fluxEns, ligne))
+            {
+                liste_ens+=ligne;
+            }
+
+            auto j = json::parse(liste_ens);
+            std::cout << j << '\n';
+
+        j["liste_Enseignants"].push_back(k);
+
+        std::cout << j << '\n';
+        ofstream fluxEns(ens.c_str());
+
+        fluxEns << j << endl;
+
+        }
+        else
+        {
+            cout << "ERREUR: Impossible d'ouvrir le fichier enseignant." << endl;
+        }
+
+    }
+    else
+    {
+        cout <<"Action annulée"<<endl;
+    }
+
+
+
+}
+
+
+void ajouter_module_a_un_enseignant()
+{
+    string n , p , mo ;
+    cout << "nom de l'enseignant" << endl;
+    cin  >>  n;
+    cout << "prenom de l'enseignant" << endl;
+    cin  >>  p;
+    cout << "nom du module" << endl;
+    cin  >>  mo;
+    std::ifstream i("C:/stage/ens.json");  // On indique ici juste le chemin pour accéder a la liste des enseignants
+    json js;
+    i >> js;
+    cout << "fichier json bien reccup" << endl;
+
+    for(i==0;i<js.end;i++)
+    {
+        if(js["liste_Enseignants"][i]["prenom"]==p and js["liste_Enseignants"][i]["nom"]==n )
+        {
+            nlohmann::json m = nlohmann::json({"Modules",{mo}}});
+            std::cin << js["liste_Enseignants"][i]["modules"] << endl;
+        }
+    }
+    std::cout << js["liste_Enseignants"][0]["prenom"] << endl;
+
+}
+
+
+
+
+
+
